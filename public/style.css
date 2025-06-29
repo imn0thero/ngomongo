@@ -1,0 +1,928 @@
+/* Import Romantic Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* CSS Variables for Romantic Theme */
+:root {
+    --primary-pink: #ff6b9d;
+    --primary-purple: #c44569;
+    --light-pink: #ffe0e6;
+    --dark-pink: #ff4757;
+    --golden: #f1c40f;
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-romantic: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+    --gradient-message: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    --gradient-own: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    --shadow-soft: 0 8px 32px rgba(31, 38, 135, 0.37);
+    --shadow-romantic: 0 8px 32px rgba(255, 107, 157, 0.2);
+    --border-glass: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Animated Background */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Floating Hearts Animation */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, #ff6b9d, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255, 107, 157, 0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, #c44569, transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(196, 69, 105, 0.6), transparent),
+        radial-gradient(2px 2px at 160px 30px, #ff6b9d, transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    animation: floatingHearts 20s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes floatingHearts {
+    0% { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-100vh) rotate(360deg); }
+}
+
+/* Container */
+.container {
+    display: flex;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: var(--border-glass);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    border-right: var(--border-glass);
+    padding: 20px;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+.sidebar h3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: var(--primary-pink);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    animation: slideInLeft 0.5s ease-out;
+}
+
+@keyframes slideInLeft {
+    from { 
+        opacity: 0; 
+        transform: translateX(-30px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateX(0); 
+    }
+}
+
+.user-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-romantic);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.status-online { background: #2ecc71; }
+.status-away { background: #f39c12; }
+.status-offline { background: #95a5a6; }
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Chat Area */
+.chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+}
+
+/* Chat Header - Fixed */
+.chat-header {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border-bottom: var(--border-glass);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.chat-header h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    background: var(--gradient-romantic);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textGlow 3s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 107, 157, 0.5)); }
+}
+
+.clear-btn {
+    background: var(--gradient-romantic);
+    border: none;
+    padding: 12px 16px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
+}
+
+.clear-btn:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: var(--shadow-romantic);
+}
+
+/* Messages Container - Scrollable */
+.messages-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 30px;
+    scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+.messages-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+    background: var(--gradient-romantic);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-pink);
+}
+
+/* Messages */
+.message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    animation: messageSlideIn 0.5s ease-out;
+    max-width: 70%;
+}
+
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message.own {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+.message-bubble {
+    background: var(--gradient-message);
+    padding: 15px 20px;
+    border-radius: 25px 25px 25px 8px;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    word-wrap: break-word;
+    transition: all 0.3s ease;
+}
+
+.message.own .message-bubble {
+    background: var(--gradient-own);
+    border-radius: 25px 25px 8px 25px;
+}
+
+.message-bubble:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-romantic);
+}
+
+.message-info {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 5px;
+    padding: 0 10px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Media Messages */
+.message-media {
+    margin-top: 10px;
+}
+
+.message-media img {
+    max-width: 300px;
+    max-height: 200px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.message-media img:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-romantic);
+}
+
+.message-media video {
+    max-width: 300px;
+    border-radius: 15px;
+}
+
+.message-media a {
+    color: var(--primary-pink);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.message-media a:hover {
+    text-decoration: underline;
+    color: var(--dark-pink);
+}
+
+/* Voice Notes */
+.voice-note {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 15px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.voice-play-btn {
+    background: var(--gradient-romantic);
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.voice-play-btn:hover {
+    transform: scale(1.1);
+}
+
+.voice-play-btn.playing {
+    animation: pulsePlay 1s ease-in-out infinite;
+}
+
+@keyframes pulsePlay {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.voice-waveform {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+}
+
+.waveform-bar {
+    width: 3px;
+    background: var(--primary-pink);
+    border-radius: 2px;
+    animation: waveAnimation 1.5s ease-in-out infinite;
+}
+
+@keyframes waveAnimation {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.voice-duration {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Typing Indicator */
+.typing-indicator {
+    padding: 10px 30px;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+    font-size: 0.9rem;
+    min-height: 30px;
+    animation: typingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes typingPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Input Area - Fixed */
+.input-area {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border-top: var(--border-glass);
+    padding: 20px 30px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+}
+
+.message-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.3);
+    border: var(--border-glass);
+    border-radius: 25px;
+    padding: 15px 20px;
+    color: white;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.message-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+}
+
+.message-input:focus {
+    outline: none;
+    box-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
+    transform: scale(1.02);
+}
+
+/* Buttons */
+.media-btn, .voice-btn, .send-btn {
+    background: var(--gradient-romantic);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.media-btn:hover, .voice-btn:hover, .send-btn:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: var(--shadow-romantic);
+}
+
+.send-btn:active {
+    animation: sendPulse 0.3s ease;
+}
+
+@keyframes sendPulse {
+    0% { transform: scale(1.1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1.1); }
+}
+
+.file-input {
+    display: none;
+}
+
+/* Upload Progress */
+#uploadProgress {
+    display: none;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+#uploadBar {
+    height: 100%;
+    background: var(--gradient-romantic);
+    width: 0%;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+#uploadBar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Voice Recording Modal */
+.voice-recording-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.voice-recording-container {
+    background: var(--gradient-romantic);
+    padding: 40px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: var(--shadow-romantic);
+    backdrop-filter: blur(15px);
+    border: var(--border-glass);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.recording-indicator {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: recordingPulse 1s ease-in-out infinite;
+}
+
+@keyframes recordingPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.recording-time {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+    font-family: 'Dancing Script', cursive;
+}
+
+.recording-controls {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.recording-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.cancel-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.stop-send-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primary-pink);
+    font-weight: 600;
+}
+
+.recording-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-romantic);
+}
+
+/* Login Modal */
+.login-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: modalFadeIn 0.5s ease;
+}
+
+.login-form {
+    background: var(--gradient-romantic);
+    padding: 50px 40px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: var(--shadow-romantic);
+    backdrop-filter: blur(15px);
+    border: var(--border-glass);
+    animation: modalSlideIn 0.5s ease;
+    min-width: 400px;
+}
+
+.login-form h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.login-form input {
+    width: 100%;
+    padding: 15px 20px;
+    border: var(--border-glass);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.login-form input::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+.login-form input:focus {
+    outline: none;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+}
+
+.login-form button {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primary-pink);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Dancing Script', cursive;
+}
+
+.login-form button:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-romantic);
+    background: white;
+}
+
+.error-message {
+    color: #ff4757;
+    margin-bottom: 15px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    animation: errorShake 0.5s ease;
+}
+
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Notifications */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--gradient-romantic);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 25px;
+    box-shadow: var(--shadow-romantic);
+    backdrop-filter: blur(15px);
+    border: var(--border-glass);
+    z-index: 1001;
+    animation: notificationSlide 0.3s ease;
+    font-weight: 500;
+}
+
+@keyframes notificationSlide {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.notification.error {
+    background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        order: 2;
+        border-right: none;
+        border-top: var(--border-glass);
+    }
+    
+    .chat-area {
+        order: 1;
+        height: calc(100vh - 200px);
+    }
+    
+    .sidebar h3 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    
+    .user-list {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+    
+    .user-item {
+        flex-shrink: 0;
+        min-width: 120px;
+    }
+    
+    .chat-header {
+        padding: 15px 20px;
+    }
+    
+    .chat-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .messages-container {
+        padding: 15px 20px;
+    }
+    
+    .message {
+        max-width: 85%;
+    }
+    
+    .input-area {
+        padding: 15px 20px;
+        gap: 8px;
+    }
+    
+    .media-btn, .voice-btn, .send-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+    
+    .login-form {
+        margin: 20px;
+        padding: 30px 25px;
+        min-width: auto;
+        width: calc(100% - 40px);
+        max-width: 400px;
+    }
+    
+    .login-form h2 {
+        font-size: 2rem;
+    }
+    
+    .voice-recording-container {
+        margin: 20px;
+        padding: 30px 25px;
+        width: calc(100% - 40px);
+        max-width: 400px;
+    }
+    
+    .notification {
+        right: 10px;
+        left: 10px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        max-height: 150px;
+        padding: 15px;
+    }
+    
+    .chat-area {
+        height: calc(100vh - 150px);
+    }
+    
+    .chat-header {
+        padding: 12px 15px;
+    }
+    
+    .chat-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .messages-container {
+        padding: 10px 15px;
+    }
+    
+    .message-bubble {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .input-area {
+        padding: 12px 15px;
+        gap: 6px;
+    }
+    
+    .message-input {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .media-btn, .voice-btn, .send-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+    
+    .login-form h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    
+    .recording-indicator {
+        font-size: 3rem;
+    }
+    
+    .recording-time {
+        font-size: 1.5rem;
+    }
+}
+
+/* Additional Cute Animations */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.message:hover .message-bubble {
+    animation: bounce 0.6s ease;
+}
+
+/* Sparkle Effect for Special Messages */
+.message-bubble::after {
+    content: '✨';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    opacity: 0;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { 
+        opacity: 0; 
+        transform: scale(0) rotate(0deg); 
+    }
+    50% { 
+        opacity: 1; 
+        transform: scale(1) rotate(180deg); 
+    }
+}
+
+/* Love Mode - Special Effects for Romantic Messages */
+.message.love-mode .message-bubble {
+    background: var(--gradient-romantic);
+    box-shadow: 0 0 30px rgba(255, 107, 157, 0.6);
+    animation: loveGlow 2s ease-in-out infinite;
+}
+
+@keyframes loveGlow {
+    0%, 100% { 
+        box-shadow: 0 0 30px rgba(255, 107, 157, 0.6);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 0 0 50px rgba(255, 107, 157, 0.8);
+        transform: scale(1.02);
+    }
+}
