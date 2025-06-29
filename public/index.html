@@ -1,926 +1,972 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💕 ⸜(｡˃ ᵕ ˂ )⸝♡ 💕</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        :root {
-            --primary-pink: #ff69b4;
-            --soft-pink: #ffb3d9;
-            --light-pink: #ffe6f2;
-            --white: #ffffff;
-            --purple: #9b59b6;
-            --light-purple: #e8d5ff;
-            --text-dark: #2c3e50;
-            --shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
-            --gradient: linear-gradient(135deg, #ff69b4, #9b59b6);
-            --chat-gradient: linear-gradient(135deg, #ffe6f2, #e8d5ff);
-        }
-        
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: var(--chat-gradient);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        /* Animated background hearts */
-        body::before {
-            content: '💕💖💝💗💘💓';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            font-size: 2rem;
-            opacity: 0.1;
-            animation: floatingHearts 20s infinite linear;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        @keyframes floatingHearts {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-100vh) rotate(360deg); }
-        }
-        
-        /* Login Screen */
-        #loginScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: all 0.5s ease;
-        }
-        
-        .login-card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            animation: bounceIn 0.8s ease;
-            max-width: 90%;
-            width: 350px;
-        }
-        
-        @keyframes bounceIn {
-            0% { transform: scale(0.3) rotate(-10deg); opacity: 0; }
-            50% { transform: scale(1.1) rotate(5deg); }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
-        
-        .login-card h1 {
-            color: var(--primary-pink);
-            margin-bottom: 1rem;
-            font-size: 2rem;
-            animation: heartbeat 2s infinite;
-        }
-        
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        .login-card input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--soft-pink);
-            border-radius: 15px;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-            background: var(--light-pink);
-        }
-        
-        .login-card input:focus {
-            border-color: var(--primary-pink);
-            transform: scale(1.02);
-            box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
-        }
-        
-        .login-btn {
-            background: var(--gradient);
-            color: var(--white);
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 15px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-        
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-        
-        /* Chat Container */
-        #chatContainer {
-            display: none;
-            height: 100vh;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .chat-header {
-            background: var(--gradient);
-            color: var(--white);
-            padding: 1rem;
-            text-align: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            box-shadow: var(--shadow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .header-content {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .header-clear-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: var(--white);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 0.5rem;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-        }
-        
-        .header-clear-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1) rotate(5deg);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-        
-        .header-clear-btn:active {
-            animation: wiggle 0.5s ease;
-        }
-        
-        .chat-header h1 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-        
-        .online-users {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-        
-        .user-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-        
-        .user-tag {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        /* Messages Area */
-        #messages {
-            position: fixed;
-            top: 100px; /* Increased height to accommodate user list */
-            bottom: 80px; /* Height of input area */
-            left: 0;
-            right: 0;
-            overflow-y: auto;
-            padding: 1rem;
-            background: transparent;
-        }
-        
-        .message {
-            background: var(--white);
-            margin-bottom: 1rem;
-            padding: 1rem;
-            border-radius: 20px;
-            box-shadow: 0 2px 10px rgba(255, 105, 180, 0.2);
-            animation: slideIn 0.5s ease;
-            position: relative;
-            border-left: 4px solid var(--primary-pink);
-        }
-        
-        @keyframes slideIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(20px) scale(0.9);
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        .message-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-        
-        .username {
-            font-weight: 600;
-            color: var(--primary-pink);
-            font-size: 1rem;
-        }
-        
-        .timestamp {
-            font-size: 0.8rem;
-            color: var(--purple);
-            opacity: 0.7;
-        }
-        
-        .message-content {
-            color: var(--text-dark);
-            line-height: 1.6;
-            word-wrap: break-word;
-        }
-        
-        .media-container {
-            margin-top: 0.5rem;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        .media-container img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 15px;
-            transition: transform 0.3s ease;
-        }
-        
-        .media-container img:hover {
-            transform: scale(1.05);
-        }
-        
-        .media-container video, .media-container audio {
-            width: 100%;
-            border-radius: 15px;
-        }
-        
-        /* Input Area */
-        .input-area {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--white);
-            padding: 1rem;
-            box-shadow: 0 -2px 15px rgba(255, 105, 180, 0.3);
-            border-top: 2px solid var(--soft-pink);
-        }
-        
-        .input-container {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            max-width: 100%;
-        }
-        
-        #messageInput {
-            flex: 1;
-            padding: 0.8rem 1rem;
-            border: 2px solid var(--soft-pink);
-            border-radius: 25px;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-            background: var(--light-pink);
-        }
-        
-        #messageInput:focus {
-            border-color: var(--primary-pink);
-            box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
-        }
-        
-        .btn {
-            padding: 0.8rem;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .btn:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .send-btn {
-            background: var(--gradient);
-            color: var(--white);
-        }
-        
-        .upload-btn {
-            background: var(--soft-pink);
-            color: var(--white);
-        }
-        
-        .clear-btn {
-            background: #ff6b6b;
-            color: var(--white);
-        }
-        
-        /* File input hidden */
-        #fileInput {
-            display: none;
-        }
-        
-        /* Typing indicator */
-        .typing-indicator {
-            background: var(--light-purple);
-            padding: 0.5rem 1rem;
-            border-radius: 15px;
-            margin-bottom: 1rem;
-            font-style: italic;
-            color: var(--purple);
-            animation: pulse 1.5s infinite;
-        }
-        
-        /* Notifications */
-        .notification {
-            background: var(--light-purple);
-            color: var(--purple);
-            padding: 0.5rem 1rem;
-            border-radius: 15px;
-            margin-bottom: 1rem;
-            text-align: center;
-            font-style: italic;
-            animation: fadeInOut 3s ease;
-        }
-        
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0; transform: translateY(-10px); }
-            20%, 80% { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .login-card {
-                padding: 1.5rem;
-                margin: 1rem;
-            }
-            
-            .login-card h1 {
-                font-size: 1.5rem;
-            }
-            
-            .chat-header {
-                padding: 0.8rem;
-            }
-            
-            .chat-header h1 {
-                font-size: 1.2rem;
-            }
-            
-            .header-clear-btn {
-                width: 35px;
-                height: 35px;
-                font-size: 0.9rem;
-            }
-            
-            .user-tag {
-                font-size: 0.7rem;
-                padding: 0.2rem 0.6rem;
-            }
-            
-            #messages {
-                top: 90px;
-                bottom: 70px;
-                padding: 0.8rem;
-            }
-            
-            .message {
-                padding: 0.8rem;
-                margin-bottom: 0.8rem;
-            }
-            
-            .input-area {
-                padding: 0.8rem;
-            }
-            
-            .input-container {
-                gap: 0.3rem;
-            }
-            
-            #messageInput {
-                font-size: 0.9rem;
-                padding: 0.7rem;
-            }
-            
-            .btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            body::before {
-                font-size: 1.5rem;
-            }
-            
-            .login-card {
-                padding: 1rem;
-            }
-            
-            .chat-header {
-                padding: 0.6rem;
-            }
-            
-            .chat-header h1 {
-                font-size: 1rem;
-            }
-            
-            .online-users {
-                font-size: 0.8rem;
-            }
-            
-            .header-clear-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8rem;
-            }
-            
-            .user-tag {
-                font-size: 0.6rem;
-                padding: 0.2rem 0.5rem;
-            }
-            
-            #messages {
-                top: 80px;
-                bottom: 65px;
-                padding: 0.6rem;
-            }
-            
-            .message {
-                padding: 0.6rem;
-            }
-            
-            .username {
-                font-size: 0.9rem;
-            }
-            
-            .timestamp {
-                font-size: 0.7rem;
-            }
-            
-            .input-area {
-                padding: 0.6rem;
-            }
-        }
-        
-        /* Cute animations for buttons */
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-3deg); }
-            75% { transform: rotate(3deg); }
-        }
-        
-        .btn:active {
-            animation: wiggle 0.5s ease;
-        }
-        
-        /* Loading animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 105, 180, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary-pink);
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Hide scrollbar but keep functionality */
-        #messages::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        #messages::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        
-        #messages::-webkit-scrollbar-thumb {
-            background: var(--soft-pink);
-            border-radius: 3px;
-        }
-        
-        #messages::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-pink);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>💕 ⸜(｡˃ ᵕ ˂ )⸝♡ 💕</title>
+  <style>
+    /* (Salin seluruh CSS Anda di sini dari kode awal) */
+    /* --- Mulai CSS Anda --- */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-pink: #ff69b4;
+    --soft-pink: #ffb3d9;
+    --light-pink: #ffe6f2;
+    --white: #ffffff;
+    --purple: #9b59b6;
+    --light-purple: #e8d5ff;
+    --text-dark: #2c3e50;
+    --shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
+    --gradient: linear-gradient(135deg, #ff69b4, #9b59b6);
+    --chat-gradient: linear-gradient(135deg, #ffe6f2, #e8d5ff);
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--chat-gradient);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Animated background hearts */
+body::before {
+    content: '💕💖💝💗💘💓';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 2rem;
+    opacity: 0.1;
+    animation: floatingHearts 20s infinite linear;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes floatingHearts {
+    0% { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-100vh) rotate(360deg); }
+}
+
+/* Login Screen */
+#loginScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.5s ease;
+}
+
+.login-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    animation: bounceIn 0.8s ease;
+    max-width: 90%;
+    width: 350px;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+    50% { transform: scale(1.1) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.login-card h1 {
+    color: var(--primary-pink);
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    animation: heartbeat 2s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.login-card input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--soft-pink);
+    border-radius: 15px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background: var(--light-pink);
+}
+
+.login-card input:focus {
+    border-color: var(--primary-pink);
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+}
+
+.login-btn {
+    background: var(--gradient);
+    color: var(--white);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+/* Chat Container */
+#chatContainer {
+    display: none;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+.chat-header {
+    background: var(--gradient);
+    color: var(--white);
+    padding: 1rem;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content {
+    flex: 1;
+    text-align: center;
+}
+
+.header-clear-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.header-clear-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1) rotate(5deg);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.header-clear-btn:active {
+    animation: wiggle 0.5s ease;
+}
+
+.chat-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.online-users {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.user-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.user-tag {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Messages Area */
+#messages {
+    position: fixed;
+    top: 120px;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    padding: 1rem;
+    background: transparent;
+}
+
+.message {
+    background: var(--white);
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(255, 105, 180, 0.2);
+    animation: slideIn 0.5s ease;
+    position: relative;
+    border-left: 4px solid var(--primary-pink);
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px) scale(0.9);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+    }
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.username {
+    font-weight: 600;
+    color: var(--primary-pink);
+    font-size: 1rem;
+}
+
+.timestamp {
+    font-size: 0.8rem;
+    color: var(--purple);
+    opacity: 0.7;
+}
+
+.message-content {
+    color: var(--text-dark);
+    line-height: 1.6;
+    word-wrap: break-word;
+}
+
+.media-container {
+    margin-top: 0.5rem;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.media-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.media-container img:hover {
+    transform: scale(1.05);
+}
+
+.media-container video, .media-container audio {
+    width: 100%;
+    border-radius: 15px;
+}
+
+/* Input Area */
+.input-area {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    padding: 1rem;
+    box-shadow: 0 -2px 15px rgba(255, 105, 180, 0.3);
+    border-top: 2px solid var(--soft-pink);
+}
+
+.input-container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    max-width: 100%;
+}
+
+#messageInput {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--soft-pink);
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background: var(--light-pink);
+}
+
+#messageInput:focus {
+    border-color: var(--primary-pink);
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+}
+
+.btn {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.send-btn {
+    background: var(--gradient);
+    color: var(--white);
+}
+
+.upload-btn {
+    background: var(--soft-pink);
+    color: var(--white);
+}
+
+.clear-btn {
+    background: #ff6b6b;
+    color: var(--white);
+}
+
+/* File input hidden */
+#fileInput {
+    display: none;
+}
+
+/* Typing indicator */
+.typing-indicator {
+    background: var(--light-purple);
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+    font-style: italic;
+    color: var(--purple);
+    animation: pulse 1.5s infinite;
+}
+
+/* Notifications */
+.notification {
+    background: var(--light-purple);
+    color: var(--purple);
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-style: italic;
+    animation: fadeInOut 3s ease;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; transform: translateY(-10px); }
+    20%, 80% { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-card {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .login-card h1 {
+        font-size: 1.5rem;
+    }
+    
+    .chat-header {
+        padding: 0.8rem;
+    }
+    
+    .chat-header h1 {
+        font-size: 1.2rem;
+    }
+    
+    .header-clear-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    
+    .user-tag {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+    }
+    
+    #messages {
+        top: 100px;
+        bottom: 70px;
+        padding: 0.8rem;
+    }
+    
+    .message {
+        padding: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .input-area {
+        padding: 0.8rem;
+    }
+    
+    .input-container {
+        gap: 0.3rem;
+    }
+    
+    #messageInput {
+        font-size: 0.9rem;
+        padding: 0.7rem;
+    }
+    
+    .btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body::before {
+        font-size: 1.5rem;
+    }
+    
+    .login-card {
+        padding: 1rem;
+    }
+    
+    .chat-header {
+        padding: 0.6rem;
+    }
+    
+    .chat-header h1 {
+        font-size: 1rem;
+    }
+    
+    .online-users {
+        font-size: 0.8rem;
+    }
+    
+    .header-clear-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    
+    .user-tag {
+        font-size: 0.6rem;
+        padding: 0.2rem 0.5rem;
+    }
+    
+    #messages {
+        top: 90px;
+        bottom: 65px;
+        padding: 0.6rem;
+    }
+    
+    .message {
+        padding: 0.6rem;
+    }
+    
+    .username {
+        font-size: 0.9rem;
+    }
+    
+    .timestamp {
+        font-size: 0.7rem;
+    }
+    
+    .input-area {
+        padding: 0.6rem;
+    }
+}
+
+/* Cute animations for buttons */
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-3deg); }
+    75% { transform: rotate(3deg); }
+}
+
+.btn:active {
+    animation: wiggle 0.5s ease;
+}
+
+/* Loading animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 105, 180, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-pink);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Hide scrollbar but keep functionality */
+#messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+#messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#messages::-webkit-scrollbar-thumb {
+    background: var(--soft-pink);
+    border-radius: 3px;
+}
+
+#messages::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-pink);
+}
+  </style>
 </head>
 <body>
-    <!-- Login Screen -->
-    <div id="loginScreen">
-        <div class="login-card">
-            <h1>💕💕⃝🕊️ 💕⃝🕊️💕</h1>
-            <p style="color: #666; margin-bottom: 1.5rem;">Masuk dulu sayang biar nyaman 🥰</p>
-            <input type="text" id="usernameInput" placeholder="Nama manis kamu... 💖" maxlength="20">
-            <button class="login-btn" onclick="joinChat()">
-                Masuk ke Kamar💕
-            </button>
-        </div>
+  <!-- Login Screen -->
+  <div id="loginScreen">
+    <div class="login-card">
+      <h1>💕💕⃝🕊️ 💕⃝🕊️💕</h1>
+      <p style="color: #666; margin-bottom: 1.5rem;">Masuk dulu sayang biar nyaman 🥰</p>
+      <input
+        type="text"
+        id="usernameInput"
+        placeholder="Nama manis kamu... 💖"
+        maxlength="20"
+        autocomplete="off"
+      />
+      <button class="login-btn" onclick="joinChat()" id="loginBtn">
+        Masuk ke Kamar💕
+      </button>
+    </div>
+  </div>
+
+  <!-- Chat Container -->
+  <div id="chatContainer" style="display: none;">
+    <div class="chat-header">
+      <div></div>
+      <div class="header-content">
+        <h1>💕I LOVE YOU💕</h1>
+        <div class="online-users" id="onlineUsers">👩‍❤️‍💋‍👨:</div>
+        <div class="user-list" id="userList"></div>
+      </div>
+      <button
+        class="header-clear-btn"
+        onclick="clearMessages()"
+        title="Hapus Semua Pesan"
+      >
+        🗑️
+      </button>
     </div>
 
-    <!-- Chat Container -->
-    <div id="chatContainer">
-        <div class="chat-header">
-            <div></div> <!-- Spacer for left side -->
-            <div class="header-content">
-                <h1>💕I LOVE YOU💕</h1>
-                <div class="online-users" id="onlineUsers">👩‍❤️‍💋‍👨:</div>
-                <div class="user-list" id="userList"></div>
-            </div>
-            <button class="header-clear-btn" onclick="clearMessages()" title="Hapus Semua Pesan">
-                🗑️
-            </button>
-        </div>
+    <div id="messages"></div>
 
-        <div id="messages"></div>
-
-        <div class="input-area">
-            <div class="input-container">
-                <input type="text" id="messageInput" placeholder="Sampaikan rasa sayangmu... 💖" maxlength="500">
-                <input type="file" id="fileInput" accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt">
-                <button class="btn upload-btn" onclick="document.getElementById('fileInput').click()" title="Upload File">
-                    📎
-                </button>
-                <button class="btn send-btn" onclick="sendMessage()" title="Kirim Pesan">
-                    💕
-                </button>
-            </div>
-        </div>
+    <div class="input-area">
+      <div class="input-container">
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Sampaikan rasa sayangmu... 💖"
+          maxlength="500"
+          autocomplete="off"
+        />
+        <input
+          type="file"
+          id="fileInput"
+          accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt"
+          style="display: none"
+        />
+        <button
+          class="btn upload-btn"
+          onclick="document.getElementById('fileInput').click()"
+          title="Upload File"
+        >
+          📎
+        </button>
+        <button class="btn send-btn" onclick="sendMessage()" title="Kirim Pesan">
+          💕
+        </button>
+      </div>
     </div>
+  </div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        const socket = io();
-        let username = '';
-        let isTyping = false;
-        let typingTimeout;
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    let username = "";
+    let isTyping = false;
+    let typingTimeout;
 
-        // Elements
-        const loginScreen = document.getElementById('loginScreen');
-        const chatContainer = document.getElementById('chatContainer');
-        const usernameInput = document.getElementById('usernameInput');
-        const messageInput = document.getElementById('messageInput');
-        const messagesDiv = document.getElementById('messages');
-        const onlineUsers = document.getElementById('onlineUsers');
-        const userList = document.getElementById('userList');
-        const fileInput = document.getElementById('fileInput');
+    // Elements
+    const loginScreen = document.getElementById("loginScreen");
+    const chatContainer = document.getElementById("chatContainer");
+    const usernameInput = document.getElementById("usernameInput");
+    const messageInput = document.getElementById("messageInput");
+    const messagesDiv = document.getElementById("messages");
+    const onlineUsers = document.getElementById("onlineUsers");
+    const userList = document.getElementById("userList");
+    const fileInput = document.getElementById("fileInput");
+    const loginBtn = document.getElementById("loginBtn");
 
-        // Join chat function
-        function joinChat() {
-            const inputUsername = usernameInput.value.trim();
-            if (inputUsername.length < 2) {
-                alert('Namanya minimal 2 huruf sayang 💖');
-                return;
-            }
-            if (inputUsername.length > 20) {
-                alert('Jangan panjang-panjang sayang capek bacanya! 😅');
-                return;
-            }
-            
-            username = inputUsername;
-            socket.emit('join', username);
+    // Join chat function
+    function joinChat() {
+      const inputUsername = usernameInput.value.trim();
+      if (inputUsername.length < 2) {
+        alert("Namanya minimal 2 huruf sayang 💖");
+        return;
+      }
+      if (inputUsername.length > 20) {
+        alert("Jangan panjang-panjang sayang capek bacanya! 😅");
+        return;
+      }
+
+      username = inputUsername;
+
+      // Show loading state
+      loginBtn.innerHTML = '<div class="loading"></div> Masuk...';
+      loginBtn.disabled = true;
+
+      socket.emit("join", username);
+    }
+
+    // Terima event join_success untuk masuk ke chat
+    socket.on("join_success", (data) => {
+      loginScreen.style.display = "none";
+      chatContainer.style.display = "block";
+      loginBtn.innerHTML = "Masuk ke Kamar💕";
+      loginBtn.disabled = false;
+      messageInput.focus();
+    });
+
+    // Kirim pesan
+    function sendMessage() {
+      const text = messageInput.value.trim();
+      if (text) {
+        socket.emit("new_message", {
+          text: text,
+          type: "text",
+        });
+        messageInput.value = "";
+        stopTyping();
+      }
+    }
+
+    // Clear messages
+    function clearMessages() {
+      if (confirm("Mau membuang semua kenangan ini? 🥺")) {
+        socket.emit("clear_messages");
+      }
+    }
+
+    // Upload file
+    fileInput.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (file.size > 50 * 1024 * 1024) {
+        alert("Kegedean ayangggg, 50MB max! 😅");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("media", file);
+
+      try {
+        addMessage({
+          username: "System",
+          text: "Sedang upload sayang, sabar ya... 📤",
+          timestamp: new Date(),
+          type: "system",
+        });
+
+        const response = await fetch("/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          socket.emit("new_message", {
+            text: `Mengirim file: ${result.originalName}`,
+            media: {
+              filename: result.filename,
+              originalName: result.originalName,
+              size: result.size,
+              path: result.path,
+            },
+            type: "media",
+          });
+        } else {
+          alert("Gagal upload file: " + result.error);
         }
+      } catch (error) {
+        alert("Error uploading file: " + error.message);
+      }
 
-        // Send message function
-        function sendMessage() {
-            const text = messageInput.value.trim();
-            if (text) {
-                socket.emit('new_message', {
-                    text: text,
-                    type: 'text'
-                });
-                messageInput.value = '';
-                stopTyping();
-            }
+      fileInput.value = "";
+    });
+
+    // Typing indicator
+    messageInput.addEventListener("input", () => {
+      if (!isTyping) {
+        isTyping = true;
+        socket.emit("typing", true);
+      }
+
+      clearTimeout(typingTimeout);
+      typingTimeout = setTimeout(() => {
+        stopTyping();
+      }, 1000);
+    });
+
+    function stopTyping() {
+      if (isTyping) {
+        isTyping = false;
+        socket.emit("typing", false);
+      }
+    }
+
+    // Enter key send message
+    messageInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    });
+
+    usernameInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        joinChat();
+      }
+    });
+
+    // Socket listeners
+    socket.on("load_messages", (messages) => {
+      messagesDiv.innerHTML = "";
+      messages.forEach(addMessage);
+      scrollToBottom();
+    });
+
+    socket.on("message_received", (message) => {
+      addMessage(message);
+      scrollToBottom();
+    });
+
+    socket.on("user_joined", (joinedUsername) => {
+      addNotification(`💖 ${joinedUsername} hay sayangkuu!`);
+    });
+
+    socket.on("user_left", (leftUsername) => {
+      addNotification(`💔 ${leftUsername} bye bye sayang, kesini lagi ya kalo kangen`);
+    });
+
+    socket.on("user_list_update", (users) => {
+      updateUserList(users);
+    });
+
+    socket.on("user_typing", ({ username: typingUser, isTyping: typing }) => {
+      const typingDiv = document.getElementById("typing-indicator");
+
+      if (typing) {
+        if (!typingDiv) {
+          const div = document.createElement("div");
+          div.id = "typing-indicator";
+          div.className = "typing-indicator";
+          div.textContent = `💭 ${typingUser} sedang menyampaikan rasa sayang...`;
+          messagesDiv.appendChild(div);
+          scrollToBottom();
         }
-
-        // Clear messages function
-        function clearMessages() {
-            if (confirm('Mau membuang semua kenangan ini? 🥺')) {
-                socket.emit('clear_messages');
-            }
+      } else {
+        if (typingDiv) {
+          typingDiv.remove();
         }
+      }
+    });
 
-        // File upload handling
-        fileInput.addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
+    socket.on("messages_cleared", () => {
+      messagesDiv.innerHTML = "";
+      addNotification("🧹 Semua kenangan sudah hilang, tak apa kita buka kenangan baru!");
+    });
 
-            if (file.size > 50 * 1024 * 1024) {
-                alert('Kegedean ayangggg, 50MB max! 😅');
-                return;
-            }
+    socket.on("username_taken", () => {
+      alert("Nama kamu udah di hatiku sayang! 😊");
+      loginBtn.innerHTML = "Masuk ke Kamar💕";
+      loginBtn.disabled = false;
+    });
 
-            const formData = new FormData();
-            formData.append('media', file);
+    socket.on("room_full", () => {
+      alert("Kamar udah penuh, maaf ya! 😅");
+      loginBtn.innerHTML = "Masuk ke Kamar💕";
+      loginBtn.disabled = false;
+    });
 
-            try {
-                // Show loading
-                addMessage({
-                    username: 'System',
-                    text: 'Sedang upload sayang, sabar ya... 📤',
-                    timestamp: new Date(),
-                    type: 'system'
-                });
+    socket.on("disconnect", () => {
+      addNotification("🔌 Hubungan terputus... Mencoba menyambung kembali...");
+      loginScreen.style.display = "flex";
+      chatContainer.style.display = "none";
+    });
 
-                const response = await fetch('/upload', {
-                    method: 'POST',
-                    body: formData
-                });
+    socket.on("connect_error", (error) => {
+      alert("Gagal terhubung ke server! Coba refresh halaman.");
+      loginBtn.innerHTML = "Masuk ke Kamar💕";
+      loginBtn.disabled = false;
+    });
 
-                const result = await response.json();
-                
-                if (response.ok) {
-                    socket.emit('new_message', {
-                        text: `Mengirim file: ${result.originalName}`,
-                        media: {
-                            filename: result.filename,
-                            originalName: result.originalName,
-                            size: result.size,
-                            path: result.path
-                        },
-                        type: 'media'
-                    });
-                } else {
-                    alert('Gagal upload file: ' + result.error);
-                }
-            } catch (error) {
-                alert('Error uploading file: ' + error.message);
-            }
+    // Helper functions
+    function updateUserList(users) {
+      onlineUsers.textContent = `👥 User Online (${users.length}):`;
+      userList.innerHTML = "";
 
-            fileInput.value = '';
-        });
+      users.forEach((user) => {
+        const userTag = document.createElement("div");
+        userTag.className = "user-tag";
+        userTag.textContent = user.username || user;
+        userList.appendChild(userTag);
+      });
+    }
 
-        // Typing indicators
-        messageInput.addEventListener('input', () => {
-            if (!isTyping) {
-                isTyping = true;
-                socket.emit('typing', true);
-            }
-            
-            clearTimeout(typingTimeout);
-            typingTimeout = setTimeout(() => {
-                stopTyping();
-            }, 1000);
-        });
+    function addMessage(message) {
+      const messageDiv = document.createElement("div");
+      messageDiv.className = "message";
 
-        function stopTyping() {
-            if (isTyping) {
-                isTyping = false;
-                socket.emit('typing', false);
-            }
+      const timestamp = new Date(message.timestamp).toLocaleTimeString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
+      let mediaHtml = "";
+      if (message.media) {
+        const media = message.media;
+        const isImage = /\.(jpg|jpeg|png|gif)$/i.test(media.filename);
+        const isVideo = /\.(mp4|mov|avi)$/i.test(media.filename);
+        const isAudio = /\.(mp3|wav|ogg|webm|m4a)$/i.test(media.filename);
+
+        if (isImage) {
+          mediaHtml = `<div class="media-container">
+                    <img src="${media.path}" alt="${media.originalName}" loading="lazy" />
+                  </div>`;
+        } else if (isVideo) {
+          mediaHtml = `<div class="media-container">
+                    <video controls>
+                      <source src="${media.path}" type="video/mp4" />
+                      Browser tidak mendukung video.
+                    </video>
+                  </div>`;
+        } else if (isAudio) {
+          mediaHtml = `<div class="media-container">
+                    <audio controls>
+                      <source src="${media.path}" />
+                      Browser tidak mendukung audio.
+                    </audio>
+                  </div>`;
+        } else {
+          mediaHtml = `<div class="media-container">
+                    <a href="${media.path}" target="_blank" style="color: var(--primary-pink); text-decoration: none;">
+                      📄 ${media.originalName} (${formatFileSize(media.size)})
+                    </a>
+                  </div>`;
         }
+      }
 
-        // Enter key to send message
-        messageInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-
-        usernameInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                joinChat();
-            }
-        });
-
-        // Socket event listeners
-        socket.on('load_messages', (messages) => {
-            messagesDiv.innerHTML = '';
-            messages.forEach(addMessage);
-            scrollToBottom();
-        });
-
-        socket.on('message_received', (message) => {
-            addMessage(message);
-            scrollToBottom();
-        });
-
-        socket.on('user_joined', (joinedUsername) => {
-            addNotification(`💖 ${joinedUsername} hay sayangkuu!`);
-        });
-
-        socket.on('user_left', (leftUsername) => {
-            addNotification(`💔 ${leftUsername} bye bye sayang, kesini lagi ya kalo kangen`);
-        });
-
-        socket.on('user_list_update', (users) => {
-            updateUserList(users);
-        });
-
-        socket.on('user_typing', ({ username: typingUser, isTyping: typing }) => {
-            const typingDiv = document.getElementById('typing-indicator');
-            
-            if (typing) {
-                if (!typingDiv) {
-                    const div = document.createElement('div');
-                    div.id = 'typing-indicator';
-                    div.className = 'typing-indicator';
-                    div.textContent = `💭 ${typingUser} sedang menyampaikan rasa sayang...`;
-                    messagesDiv.appendChild(div);
-                    scrollToBottom();
-                }
-            } else {
-                if (typingDiv) {
-                    typingDiv.remove();
-                }
-            }
-        });
-
-        socket.on('messages_cleared', () => {
-            messagesDiv.innerHTML = '';
-            addNotification('🧹 Semua kenangan sudah hilang, tak apa kita buka kenangan baru!');
-        });
-
-        socket.on('username_taken', () => {
-            alert('Nama kamu udah di hatiku sayang! 😊');
-        });
-
-        socket.on('room_full', () => {
-            alert('Kamar udah penuh, maaf ya! 😅');
-        });
-
-        socket.on('connect', () => {
-            if (username) {
-                loginScreen.style.display = 'none';
-                chatContainer.style.display = 'block';
-            }
-        });
-
-        socket.on('disconnect', () => {
-            addNotification('🔌 Hubungan terputus... Mencoba menyambung kembali...');
-        });
-
-        // Helper functions
-        function updateUserList(users) {
-            onlineUsers.textContent = `👥 User Online (${users.length}):`;
-            userList.innerHTML = '';
-            
-            users.forEach(user => {
-                const userTag = document.createElement('div');
-                userTag.className = 'user-tag';
-                userTag.textContent = user;
-                userList.appendChild(userTag);
-            });
-        }
-
-        function addMessage(message) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message';
-            
-            const timestamp = new Date(message.timestamp).toLocaleTimeString('id-ID', {
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-
-            let mediaHtml = '';
-            if (message.media) {
-                const media = message.media;
-                const isImage = /\.(jpg|jpeg|png|gif)$/i.test(media.filename);
-                const isVideo = /\.(mp4|mov|avi)$/i.test(media.filename);
-                const isAudio = /\.(mp3|wav|ogg|webm|m4a)$/i.test(media.filename);
-
-                if (isImage) {
-                    mediaHtml = `<div class="media-container">
-                        <img src="${media.path}" alt="${media.originalName}" loading="lazy">
-                    </div>`;
-                } else if (isVideo) {
-                    mediaHtml = `<div class="media-container">
-                        <video controls>
-                            <source src="${media.path}" type="video/mp4">
-                            Browser tidak mendukung video.
-                        </video>
-                    </div>`;
-                } else if (isAudio) {
-                    mediaHtml = `<div class="media-container">
-                        <audio controls>
-                            <source src="${media.path}">
-                            Browser tidak mendukung audio.
-                        </audio>
-                    </div>`;
-                } else {
-                    mediaHtml = `<div class="media-container">
-                        <a href="${media.path}" target="_blank" style="color: var(--primary-pink); text-decoration: none;">
-                            📄 ${media.originalName} (${formatFileSize(media.size)})
-                        </a>
-                    </div>`;
-                }
-            }
-
-            messageDiv.innerHTML = `
+      messageDiv.innerHTML = `
                 <div class="message-header">
-                    <span class="username">${escapeHtml(message.username)}</span>
-                    <span class="timestamp">${timestamp}</span>
+                  <span class="username">${escapeHtml(message.username)}</span>
+                  <span class="timestamp">${timestamp}</span>
                 </div>
                 <div class="message-content">${escapeHtml(message.text)}</div>
                 ${mediaHtml}
-            `;
+              `;
 
-            messagesDiv.appendChild(messageDiv);
+      messagesDiv.appendChild(messageDiv);
+    }
+
+    function addNotification(text) {
+      const notificationDiv = document.createElement("div");
+      notificationDiv.className = "notification";
+      notificationDiv.textContent = text;
+      messagesDiv.appendChild(notificationDiv);
+
+      setTimeout(() => {
+        if (notificationDiv.parentNode) {
+          notificationDiv.remove();
         }
+      }, 5000);
+    }
 
-        function addNotification(text) {
-            const notificationDiv = document.createElement('div');
-            notificationDiv.className = 'notification';
-            notificationDiv.textContent = text;
-            messagesDiv.appendChild(notificationDiv);
-            
-            setTimeout(() => {
-                if (notificationDiv.parentNode) {
-                    notificationDiv.remove();
-                }
-            }, 5000);
-        }
+    function scrollToBottom() {
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
 
-        function scrollToBottom() {
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
 
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+    function formatFileSize(bytes) {
+      if (bytes === 0) return "0 Bytes";
+      const k = 1024;
+      const sizes = ["Bytes", "KB", "MB", "GB"];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+    }
 
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-
-        // Initialize
-        loginScreen.style.display = 'flex';
-        chatContainer.style.display = 'none';
-    </script>
+    // Inisialisasi awal
+    loginScreen.style.display = "flex";
+    chatContainer.style.display = "none";
+  </script>
 </body>
 </html>
